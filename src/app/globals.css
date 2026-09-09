@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-indigo-main: #1B2A4A;
+  --color-indigo-dark: #121C32;
+  --color-indigo-light: #2A3F6B;
+  --color-amber-main: #E8873A;
+  --color-amber-hover: #D47427;
+  --color-amber-light: #FDF3EB;
+  --color-canvas: #FAF9F6;
+  --color-canvas-subtle: #F2EFE9;
+  --color-surface: #FFFFFF;
+  --color-border-subtle: #E5E0D8;
+  --color-border-strong: #C8C2B7;
+  --color-text-primary: #1B2A4A;
+  --color-text-secondary: #4A5568;
+  --color-text-muted: #718096;
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --background: #FAF9F6;
+  --foreground: #1B2A4A;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessible focus styling */
+:focus-visible {
+  outline: 2px solid #E8873A;
+  outline-offset: 2px;
+}
+
+/* Crisp button and interactive transitions */
+.btn-transition {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
