@@ -16,3 +16,12 @@ export function getCourseWhatsAppUrl(courseTitle: string, gradeLevel: string): s
   const message = `Hello ${siteConfig.name}, I am interested in admission details for the "${courseTitle}" (${gradeLevel}). Please share batch timings and fee structure.`;
   return getWhatsAppUrl(message);
 }
+
+/**
+ * Builds RFC 3966 compliant click-to-call tel: URL removing spaces and unsupported characters
+ */
+export function getTelUrl(phone?: string): string {
+  const raw = phone || siteConfig.phone;
+  return `tel:${raw.replace(/[^0-9+]/g, '')}`;
+}
+

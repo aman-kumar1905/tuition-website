@@ -4,14 +4,26 @@ import { siteConfig } from '@/data/site-config';
 import { CoursesClient } from './CoursesClient';
 import { CTASection } from '@/components/home/CTASection';
 
+import { JsonLd } from '@/components/seo/JsonLd';
+
 export const metadata: Metadata = {
   title: 'Academic Courses & Coaching Batches',
   description: `Explore structured coaching batches for Classes 6 to 12 at ${siteConfig.name} in ${siteConfig.city}. Small batch sizes, dedicated faculty, and weekly test series.`,
+  alternates: {
+    canonical: '/courses',
+  },
+  openGraph: {
+    title: `Academic Courses & Coaching Batches | ${siteConfig.name}`,
+    description: `Explore structured coaching batches for Classes 6 to 12 at ${siteConfig.name} in ${siteConfig.city}. Small batch sizes, dedicated faculty, and weekly test series.`,
+    url: '/courses',
+  },
 };
+
 
 export default function CoursesPage() {
   return (
     <>
+      <JsonLd type="courses" />
       <section className="bg-canvas py-12 sm:py-16 border-b border-border-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">

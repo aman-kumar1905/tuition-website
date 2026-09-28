@@ -9,7 +9,7 @@ export const CoursePreview: React.FC = () => {
   const featuredCourses = coursesData.slice(0, 3);
 
   return (
-    <section className="py-16 sm:py-24 bg-canvas border-b border-border-subtle" id="courses-preview">
+    <section className="py-16 sm:py-24 bg-canvas border-b border-border-subtle scroll-mt-24" id="courses-preview">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <SectionHeader

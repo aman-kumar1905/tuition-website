@@ -2,16 +2,26 @@ import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { siteConfig } from '@/data/site-config';
 import { ContactContent } from './ContactContent';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contact Us & Admission Enquiries',
   description: `Contact ${siteConfig.name} in ${siteConfig.city}. Book a free demo class, check batch schedules, and consult with our academic head.`,
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title: `Contact Us & Admission Enquiries | ${siteConfig.name}`,
+    description: `Contact ${siteConfig.name} in ${siteConfig.city}. Book a free demo class, check batch schedules, and consult with our academic head.`,
+    url: '/contact',
+  },
 };
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd type="faq" />
       <section className="bg-canvas py-12 sm:py-16 border-b border-border-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
@@ -28,7 +38,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 bg-canvas" id="enquire">
+      <section className="py-12 sm:py-16 bg-canvas scroll-mt-24" id="enquire">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Suspense
             fallback={

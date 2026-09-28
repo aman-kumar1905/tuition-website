@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/data/site-config';
-import { getWhatsAppUrl } from '@/lib/whatsapp';
+import { getWhatsAppUrl, getTelUrl } from '@/lib/whatsapp';
 import { MessageCircle, Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const CTASection: React.FC = () => {
@@ -53,7 +53,7 @@ export const CTASection: React.FC = () => {
             </a>
 
             <a
-              href={`tel:${siteConfig.phone}`}
+              href={getTelUrl()}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-base font-semibold text-canvas hover:text-amber-main transition-colors"
             >
               <Phone className="w-4 h-4 text-amber-main" />

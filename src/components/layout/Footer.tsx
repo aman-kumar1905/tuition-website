@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/data/site-config';
-import { getWhatsAppUrl } from '@/lib/whatsapp';
+import { getWhatsAppUrl, getTelUrl } from '@/lib/whatsapp';
 import { MapPin, Phone, Mail, Clock, MessageCircle, GraduationCap, ShieldAlert } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -131,10 +131,11 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-amber-main shrink-0" />
-                <a href={`tel:${siteConfig.phone}`} className="hover:text-amber-main transition-colors">
+                <a href={getTelUrl()} className="hover:text-amber-main transition-colors">
                   {siteConfig.phoneFormatted}
                 </a>
               </div>
+
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-amber-main shrink-0" />
                 <a href={`mailto:${siteConfig.email}`} className="hover:text-amber-main transition-colors">

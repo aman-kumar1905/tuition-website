@@ -6,6 +6,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
 
+import { JsonLd } from '@/components/seo/JsonLd';
+
 const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
@@ -18,6 +20,8 @@ const inter = Inter({
   display: 'swap',
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tuition-l2.vercel.app';
+
 export const viewport: Viewport = {
   themeColor: '#1B2A4A',
   width: 'device-width',
@@ -25,6 +29,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${siteConfig.name} | Premier Coaching & Academic Mentorship in ${siteConfig.city}`,
     template: `%s | ${siteConfig.name}`,
@@ -40,10 +45,19 @@ export const metadata: Metadata = {
     'Commerce and Accounts Coaching',
     siteConfig.city,
     'Doubt Clearing Batches',
+    'Small Batch Coaching',
+    'Academic Mentorship',
   ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
+  alternates: {
+    canonical: '/',
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -52,7 +66,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://example.com',
+    url: siteUrl,
     title: `${siteConfig.name} - Academic Excellence in ${siteConfig.city}`,
     description: siteConfig.description,
     siteName: siteConfig.name,
@@ -65,6 +79,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -74,7 +95,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${fraunces.variable} ${inter.variable}`}>
+      <head>
+        <JsonLd type="organization" siteUrl={siteUrl} />
+      </head>
       <body className="min-h-screen flex flex-col bg-canvas text-indigo-main antialiased selection:bg-amber-light selection:text-amber-main">
         {/* Skip to content link for keyboard accessibility */}
         <a
@@ -94,3 +118,4 @@ export default function RootLayout({
     </html>
   );
 }
+

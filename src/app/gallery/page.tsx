@@ -8,7 +8,16 @@ import { ShieldCheck } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Campus & Facilities Gallery',
   description: `Tour the classrooms, doubt desks, reference library, and test halls at ${siteConfig.name} in ${siteConfig.city}.`,
+  alternates: {
+    canonical: '/gallery',
+  },
+  openGraph: {
+    title: `Campus & Facilities Gallery | ${siteConfig.name}`,
+    description: `Tour the classrooms, doubt desks, reference library, and test halls at ${siteConfig.name} in ${siteConfig.city}.`,
+    url: '/gallery',
+  },
 };
+
 
 export default function GalleryPage() {
   return (

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { siteConfig } from '@/data/site-config';
-import { getWhatsAppUrl } from '@/lib/whatsapp';
+import { getWhatsAppUrl, getTelUrl } from '@/lib/whatsapp';
 import { faqData } from '@/data/faq';
 import { EnquiryForm } from '@/components/enquiry/EnquiryForm';
 import {
@@ -20,7 +20,7 @@ import {
 export const ContactContent: React.FC = () => {
   const searchParams = useSearchParams();
   const initialGrade = searchParams?.get('grade') || undefined;
-  const initialSubject = searchParams?.get('subject') || undefined;
+  const initialSubject = searchParams?.get('subject') || searchParams?.get('course') || undefined;
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -64,7 +64,7 @@ export const ContactContent: React.FC = () => {
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-indigo-main">Call Counsellor</h3>
                 <a
-                  href={`tel:${siteConfig.phone}`}
+                  href={getTelUrl()}
                   className="block text-sm font-semibold text-text-primary hover:text-amber-main transition-colors mt-1"
                 >
                   {siteConfig.phoneFormatted}
@@ -136,11 +136,20 @@ export const ContactContent: React.FC = () => {
           <div className="aspect-16/9 bg-canvas-subtle rounded-lg border border-border-subtle flex flex-col items-center justify-center p-6 text-center">
             <Navigation className="w-8 h-8 text-amber-main mb-2" />
             <p className="text-xs font-bold text-indigo-main uppercase tracking-wider">
-              Interactive Map Frame
+              Campus Directions & Location
             </p>
             <p className="text-xs text-text-muted mt-1 max-w-xs">
-              Configured for Google Maps Embed with landmark routing in {siteConfig.city}.
+              Located in {siteConfig.city}. Easily accessible via public transit and major arterial roads.
             </p>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${siteConfig.name} ${siteConfig.address} ${siteConfig.city}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-md bg-indigo-main hover:bg-indigo-light text-canvas text-xs font-semibold transition-colors shadow-xs"
+            >
+              <Navigation className="w-3.5 h-3.5 text-amber-main" />
+              <span>Open in Google Maps</span>
+            </a>
           </div>
 
           <div className="mt-4 flex items-center justify-between text-xs text-text-secondary">
@@ -148,6 +157,7 @@ export const ContactContent: React.FC = () => {
             <span className="text-amber-main font-semibold">Parking Available</span>
           </div>
         </div>
+
 
         {/* FAQ Accordion */}
         <div className="bg-surface rounded-xl border border-border-subtle p-6 sm:p-8 shadow-xs">

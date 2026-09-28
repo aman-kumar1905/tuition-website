@@ -312,7 +312,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
             className="w-full px-3.5 py-2.5 rounded-md border border-border-strong text-sm text-indigo-main bg-canvas focus:bg-surface focus:border-amber-main transition-colors"
           >
-            {availableGrades.map((grade) => (
+            {Array.from(new Set([...availableGrades, ...(formData.grade ? [formData.grade] : [])])).map((grade) => (
               <option key={grade} value={grade}>
                 {grade}
               </option>
@@ -326,7 +326,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             Subjects of Interest (Select all that apply) <span className="text-amber-main">*</span>
           </label>
           <div className="flex flex-wrap gap-2">
-            {availableSubjects.map((subj) => {
+            {Array.from(new Set([...availableSubjects, ...(formData.subjects || [])])).map((subj) => {
               const isSelected = (formData.subjects || []).includes(subj);
               return (
                 <button
@@ -355,7 +355,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           <label className="block text-xs font-bold uppercase tracking-wider text-indigo-main mb-2">
             Preferred Batch Timing <span className="text-amber-main">*</span>
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3" role="group" aria-label="Batch timing options">
             {[
               { id: 'morning', label: 'Morning', time: 'Before School' },
               { id: 'evening', label: 'Evening', time: '4:00 PM – 7:30 PM' },
@@ -373,6 +373,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                       ? 'border-amber-main bg-amber-light text-indigo-main shadow-xs'
                       : 'border-border-strong bg-canvas text-text-primary hover:bg-canvas-subtle'
                   }`}
+                  aria-pressed={isSelected}
                 >
                   <span className="block text-xs font-bold">{timing.label}</span>
                   <span className="block text-[11px] text-text-muted mt-0.5">{timing.time}</span>

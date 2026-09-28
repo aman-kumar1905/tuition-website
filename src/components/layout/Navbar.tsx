@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/data/site-config';
-import { getWhatsAppUrl } from '@/lib/whatsapp';
+import { getWhatsAppUrl, getTelUrl } from '@/lib/whatsapp';
 import { Phone, MessageCircle, Menu, X, GraduationCap, Clock, MapPin } from 'lucide-react';
 
 const navLinks = [
@@ -21,6 +21,8 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(110);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,17 +32,40 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Dynamically calculate header height for mobile menu positioning
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+    };
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+    return () => window.removeEventListener('resize', updateHeaderHeight);
+  }, [scrolled, mobileMenuOpen]);
+
+  // Lock body scroll and listen for Escape key when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setMobileMenuOpen(false);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     } else {
       document.body.style.overflow = 'unset';
     }
   }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-canvas/95 backdrop-blur-none border-b border-border-subtle">
+    <header ref={headerRef} className="sticky top-0 z-40 w-full bg-canvas/95 backdrop-blur-none border-b border-border-subtle">
+
       {/* Top Notification / Info Strip */}
       <div className="bg-indigo-main text-canvas text-xs py-2 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
@@ -56,7 +81,7 @@ export const Navbar: React.FC = () => {
           </div>
           <div className="flex items-center gap-4">
             <a
-              href={`tel:${siteConfig.phone}`}
+              href={getTelUrl()}
               className="inline-flex items-center gap-1.5 hover:text-amber-main transition-colors text-canvas/90"
               aria-label={`Call ${siteConfig.phoneFormatted}`}
             >
@@ -147,7 +172,10 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[110px] bottom-0 z-50 bg-canvas border-t border-border-subtle flex flex-col p-6 overflow-y-auto">
+        <div
+          style={{ top: `${headerHeight}px` }}
+          className="lg:hidden fixed inset-x-0 bottom-0 z-50 bg-canvas border-t border-border-subtle flex flex-col p-6 overflow-y-auto"
+        >
           <nav className="flex flex-col space-y-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;

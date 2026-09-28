@@ -9,7 +9,16 @@ import { UserCheck, Award, BookOpen, CheckCircle2, ArrowRight } from 'lucide-rea
 export const metadata: Metadata = {
   title: 'Faculty & Mentors | Academic Specialists',
   description: `Meet the expert educators and subject specialists at ${siteConfig.name} in ${siteConfig.city}. Disciplined classroom delivery and personal mentoring.`,
+  alternates: {
+    canonical: '/faculty',
+  },
+  openGraph: {
+    title: `Faculty & Mentors | Academic Specialists | ${siteConfig.name}`,
+    description: `Meet the expert educators and subject specialists at ${siteConfig.name} in ${siteConfig.city}. Disciplined classroom delivery and personal mentoring.`,
+    url: '/faculty',
+  },
 };
+
 
 export default function FacultyPage() {
   return (

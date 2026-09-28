@@ -16,6 +16,19 @@ export const GalleryClient: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [activeModalItem, setActiveModalItem] = useState<GalleryItem | null>(null);
 
+  // Close modal on Escape key press
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveModalItem(null);
+      }
+    };
+    if (activeModalItem) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeModalItem]);
+
   const filteredItems = activeCategory === 'All'
     ? galleryData
     : galleryData.filter((item) => item.category === activeCategory);

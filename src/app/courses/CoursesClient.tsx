@@ -45,7 +45,7 @@ export const CoursesClient: React.FC = () => {
           <div
             key={course.id}
             id={course.id}
-            className="bg-surface rounded-xl border border-border-subtle hover:border-border-strong flex flex-col justify-between overflow-hidden shadow-xs transition-shadow"
+            className="bg-surface rounded-xl border border-border-subtle hover:border-border-strong flex flex-col justify-between overflow-hidden shadow-xs transition-shadow scroll-mt-28"
           >
             <div className="p-7 sm:p-8">
               {/* Top Tags */}
@@ -116,7 +116,7 @@ export const CoursesClient: React.FC = () => {
             {/* Action Buttons */}
             <div className="p-6 bg-canvas-subtle border-t border-border-subtle flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <Link
-                href={`/contact?course=${encodeURIComponent(course.title)}&grade=${encodeURIComponent(course.gradeLevels)}#enquire`}
+                href={`/contact?subject=${encodeURIComponent(course.title)}&course=${encodeURIComponent(course.title)}&grade=${encodeURIComponent(course.gradeLevels)}#enquire`}
                 className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-md bg-amber-main hover:bg-amber-hover text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs"
               >
                 <span>Book Free Demo Seat</span>

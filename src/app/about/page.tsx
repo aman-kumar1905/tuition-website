@@ -10,7 +10,16 @@ import { CheckCircle2, Target, HeartHandshake, Compass, BookOpen, ShieldCheck, A
 export const metadata: Metadata = {
   title: 'About Our Institute & Educational Philosophy',
   description: `Learn about the pedagogical foundations, small-cohort teaching system, and academic mentorship at ${siteConfig.name} in ${siteConfig.city}.`,
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: `About Our Institute & Methodology | ${siteConfig.name}`,
+    description: `Learn about the pedagogical foundations, small-cohort teaching system, and academic mentorship at ${siteConfig.name} in ${siteConfig.city}.`,
+    url: '/about',
+  },
 };
+
 
 export default function AboutPage() {
   return (

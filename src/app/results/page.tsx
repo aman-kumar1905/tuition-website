@@ -10,7 +10,16 @@ import { Award, Quote, ShieldCheck } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Academic Results & Student Achievements',
   description: `View board examination results, topper highlights, and parent testimonials from ${siteConfig.name} in ${siteConfig.city}.`,
+  alternates: {
+    canonical: '/results',
+  },
+  openGraph: {
+    title: `Academic Results & Student Achievements | ${siteConfig.name}`,
+    description: `View board examination results, topper highlights, and parent testimonials from ${siteConfig.name} in ${siteConfig.city}.`,
+    url: '/results',
+  },
 };
+
 
 export default function ResultsPage() {
   return (
